@@ -7,6 +7,11 @@ import wisp from "wisp-server-node";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
+import { fileURLToPath } from "node:url";
+const libcurlPath = fileURLToPath(new URL("../node_modules/@mercuryworkshop/libcurl-transport/dist/", import.meta.url));
+
+
+
 
 const app = express();
 // Load our publicPath first and prioritize it over UV.
@@ -15,6 +20,7 @@ app.use(express.static("./public"));
 // The vendor's uv.config.js won't conflict with our uv.config.js inside the publicPath directory.
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
+app.use("/libcurl/", express.static(libcurlPath));
 app.use("/baremux/", express.static(baremuxPath));
 
 // Error for everything else
